@@ -9,14 +9,14 @@ public class Die
 
     public Die()
     {
-        random = new Random();
-        CurrentValue = 0;
+        random = new Random(); 
+        CurrentValue = 0; // Setting the initial value of the dice.
     }
 
     public int Roll()
     {
-        CurrentValue = random.Next(1, 7); 
-        return CurrentValue;
+        CurrentValue = random.Next(1, 7); // Generating a random number between 1 and 6.
+        return CurrentValue; 
     }
 }
 
@@ -26,7 +26,7 @@ public class Game
 
     public Game()
     {
-        Dice = new Die[3];
+        Dice = new Die[3]; // Creating an arry for the values of all 3 dice.
         for (int i = 0; i < Dice.Length; i++)
         {
             Dice[i] = new Die();
@@ -35,16 +35,16 @@ public class Game
 
     public int RollDice()
     {
-        int Total = 0;
-        int[] Rolls = new int[Dice.Length];
-        for (int i = 0; i < Dice.Length; i++)
+        int Total = 0; // Varaible to store the total of all three dice rolls 
+        int[] Rolls = new int[Dice.Length]; // Array to store all the dice rolls invidually
+        for (int i = 0; i < Dice.Length; i++) // Looping through each die in the array
         {
-            Rolls[i] = Dice[i].Roll();
-            Total += Rolls[i];
+            Rolls[i] = Dice[i].Roll(); // Rolling the dice and storing the results
+            Total += Rolls[i]; // Adding the dice roll to the total
         }
         Console.WriteLine("Dice rolls: [" + string.Join(", ", Rolls) + "]");
         Console.WriteLine("Total of all the dice rolls: " + Total);
-        return Total;
+        return Total; // Returning the total of all the dice rolls.
     }
 }
 
@@ -52,14 +52,16 @@ public class Testing
 {
     public static void RunTests()
     {
-        Game Game = new Game();
-        int Total = Game.RollDice();
+        Game Game = new Game(); // Creating the game object
+        int Total = Game.RollDice(); // Rolling all the dice and storing the total
 
-        foreach (Die Die in Game.Dice)
+        // Testing if all the dice rolls are between 1 and 6.
+        foreach (Die Die in Game.Dice) // Looping through all the dices in the current game
         {
-            Debug.Assert(Die.CurrentValue >= 1 && Die.CurrentValue <= 6, "Die roll is out of bounds.");
+            Debug.Assert(Die.CurrentValue >= 1 && Die.CurrentValue <= 6, "Die roll is out of bounds."); // Checking if the die roll is within the range
         }
 
+        // Testing if the sum of the three values is as expected
         int ExpectedTotal = 0;
         foreach (Die Die in Game.Dice)
         {
@@ -77,12 +79,12 @@ class Program
     {
         try
         {
-            Testing.RunTests();
+            Testing.RunTests(); //Running the Testing class on the game
         }
-        catch (Exception e)
-        {
-            Console.WriteLine("Assertion Error: " + e.Message);
-            Environment.Exit(1);
+        catch (Exception e) // Catching any exceptions that occur while testing
+        { 
+            Console.WriteLine("Assertion Error: " + e.Message); //Outputing the error code
+            Environment.Exit(1); // Exiting the program 
         }
     }
 }
